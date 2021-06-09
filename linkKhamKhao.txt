@@ -1,0 +1,14 @@
+tài liệu kham khảo
+(1) ở đây có code về đọc file và convert thành array
+https://stackoverflow.com/questions/47426692/read-data-from-a-file-into-an-array-c
+(2) ở đây có file  truyền array về để có thể chia ra các mảng nhỏ hơn
+https://www.geeksforgeeks.org/return-local-array-c-function/
+(3) truyền mảng 2 chiều qua hàm
+https://www.tutorialspoint.com/Passing-two-dimensional-array-to-a-Cplusplus-function
+(4) chuyển từ general tree sang binary tree
+https://examradar.com/converting-m-ary-tree-general-tree-binary-tree/
+(5) tìm đường đi dài nhất tới cây 
+https://www.geeksforgeeks.org/longest-consecutive-sequence-binary-tree/
+(6) thêm node, tạo node bulid cây
+tất cả được học hỏi từ youtube thiện tâm nguyễn
+(7) many thanks stackoverflow đã giúp fix được các bug liên quan
