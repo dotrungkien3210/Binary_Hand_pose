@@ -1,1 +1,10 @@
-﻿  baitaplon.vcxproj -> E:\laptrinh\school\baitaplonCTDL\Debug\baitaplon.exe
+﻿  btl.cpp
+E:\laptrinh\school\baitaplonCTDL\baitaplon\btl.cpp(307,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+E:\laptrinh\school\baitaplonCTDL\baitaplon\btl.cpp(308,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+E:\laptrinh\school\baitaplonCTDL\baitaplon\btl.cpp(309,19): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+E:\laptrinh\school\baitaplonCTDL\baitaplon\btl.cpp(310,37): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+E:\laptrinh\school\baitaplonCTDL\baitaplon\btl.cpp(330,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+E:\laptrinh\school\baitaplonCTDL\baitaplon\btl.cpp(332,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+E:\laptrinh\school\baitaplonCTDL\baitaplon\btl.cpp(334,16): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+E:\laptrinh\school\baitaplonCTDL\baitaplon\btl.cpp(335,27): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  baitaplon.vcxproj -> E:\laptrinh\school\baitaplonCTDL\Debug\baitaplon.exe

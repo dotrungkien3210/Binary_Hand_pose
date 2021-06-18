@@ -6,6 +6,8 @@
 using namespace std;
 
 static int countDequy = 0;
+static int maxHeight = 0;
+
 /// <summary>
 /// 
 /// </summary>
@@ -36,9 +38,9 @@ struct shortArrayID {
 /// </summary>
 
 struct node {
-    handJoint data; //d? li?u node có th? ki?u int, float, sinhvien.....
-    struct node* pleft;   // node bên ph?i c?a cây(cây con ph?i)
-    struct node* pright;  // node bên trái c?a cây(cây con trái)
+    handJoint data; //dữ liệu node có thể kiểu int, float, sinhvien.....
+    struct node* pleft;   // node bên phải củaa cây(cây con phải)
+    struct node* pright;  // node bên trái củaa cây(cây con trái)
 };
 typedef struct node NODE;
 typedef NODE* TREE;
@@ -131,20 +133,22 @@ void themNodeVaoCay(TREE& t, int x) {
 /* câu 10 : Write a function that determines longest path of the tree.
 The function returns to the array storing the ID of node belonging to the longest path. 
 */ 
-int maxDepth(TREE& t)
+int maxDepth(TREE t)
 {
     if (t == NULL)
         return 0;
     else
     {
-        /* compute the depth of each subtree */
-        int lDepth = maxDepth(t->pleft);
+        
         int rDepth = maxDepth(t->pright);
-
-        /* use the larger one */
-        if (lDepth > rDepth)
+        int lDepth = maxDepth(t->pleft);
+       
+        if (lDepth < rDepth){
             return(lDepth + 1);
-        else return(rDepth + 1);
+        }
+        else {
+        return(rDepth + 1);
+        }
     }
 }
 
@@ -261,7 +265,7 @@ int arrayofjoints()
     }
     return count;
 }
-/////////////////////// đọc file và ghi ra///////////////////
+/////////////////////// phần 3 đọc file và ghi ra///////////////////
 float* readData(float* grades) {
 
 
@@ -389,9 +393,12 @@ int main()
         int k = i % 3;
         arrtwoD3[j][k] = arrayTam3[i];
     }
+    // hiển thị khớp nối
+    //int kq = arrayofjoints();
+
     ///////////////////////////////////////////////////////////////////////////
     // bài 4 tính khoảng cách tất cả lưu vào array 21x21
-     /*cout << "\nthe distance between two joints is\n";
+    /* cout << "\nthe distance between two joints is\n";
      calcEuclidianJoints(arrtwoD1);*/
     //////////////////////////////////////////////////////////////////////////
     // bài 5 tính khoảng cách giữa cách khớp trong các thời gian khác nhau
@@ -414,7 +421,8 @@ int main()
       giá trị nào trong array gốc thì ta sẽ lấy vị trí index 
       rồi nhảy tiếp vào arraySaveCount tìm giá trị index đó và tăng biến lên +1
       */
-      /* float arrayTam[21];
+     /*
+       float arrayTam[21];
        float arraySaveCount[21];// mảng 21 giá trị 0 để đếm phần tử
        float arrayGoc[21];
        for (int i = 0; i < 21; i++)
@@ -459,13 +467,23 @@ int main()
            {
                cout << " the value: " << arrayTam[i] << "\t";
                cout <<" swap times :" << arraySaveCount[i] << "\n";
-           }*/
+           }
+           int moveTheMost = 0;
+           for (int i = 0; i < 21; i++)
+           {
+               if (arraySaveCount[i] > moveTheMost)
+               {
+                   moveTheMost = i;
+               }
+           }
+           cout << "\n ID of the joint that moves the most is: " << moveTheMost;
+    */
     ////////////////////////////////////////////////////////////////////////
     /// câu 789 khởi tạo cây và thêm vào đều nằm trong phần này
     /// Câu 10 : tìm quãng đường xa nhất so với node gốc
-    TREE t;
+    /*TREE t;
     khoitaocay(t);
-    Menu(t);
+    Menu(t);*/
     ///////////////////////////////////////////////////////////////
     return 0;
 }
