@@ -17,14 +17,15 @@ struct handJoint {
     float y;
     float z;
     int joints;
-    int jointID;//biểu thị các khớp tay
-
+    int jointID;
+   
 };
 
 // phần 2 tạo struct handPose 
 struct handPose {
     handJoint handID;// mỗi id biểu thị tại một thời gian trạng thái bàn tay sẽ như thế nào
     handJoint allJoints[21];
+    int Timestamp;
 };
 
 // phần 6 tạo struct để kiểm soát lưu lại giá trị ID khi đang short
@@ -82,7 +83,7 @@ void duyetLRN(TREE t) {
         cout << t->data.joints << " ";// dữ liệu trong node
     }
 }
-
+//https://examradar.com/converting-m-ary-tree-general-tree-binary-tree/
 void themNodeVaoCay(TREE& t, int x) {
     // phần tử x là số nguyên khai báo trong struct node nên int x là kiểu số nguyên thêm vào
     // nếu cây rỗng thì phần tử đó chính là node gốc (root)
@@ -116,7 +117,7 @@ void themNodeVaoCay(TREE& t, int x) {
         {
             nhanhCay = 5;
         }
-        // phần tử thêm vào nhỏ hơn gốc thì đệ quy qua trái
+        // phần tử thêm vào nhỏ hơn nhánh thì đệ quy qua phải
         if (countDequy < nhanhCay)
         {
             countDequy++;
@@ -124,7 +125,7 @@ void themNodeVaoCay(TREE& t, int x) {
         }
         else
         {
-            // phần tử thêm vào lớn hơn gốc thì đệ quy qua phải
+            // phần tử thêm vào lớn hơn nhánh thì đệ quy qua trái
             themNodeVaoCay(t->pleft, x);
         }
     }
@@ -133,23 +134,46 @@ void themNodeVaoCay(TREE& t, int x) {
 /* câu 10 : Write a function that determines longest path of the tree.
 The function returns to the array storing the ID of node belonging to the longest path. 
 */ 
-int maxDepth(TREE t)
+void sumOfLongRootToLeafPath(TREE t,
+    int len, int& maxLen)
 {
+    // if true, then we have traversed a
+    // root to leaf path
+    if (t == NULL) {
+        // update maximum length and maximum sum
+        // according to the given conditions
+        if (maxLen < len) {
+            maxLen = len;
+           
+        }      
+        return;
+    }
+
+    // recur for left subtree
+    sumOfLongRootToLeafPath(t->pleft,
+        len + 1, maxLen);
+
+    // recur for right subtree
+    sumOfLongRootToLeafPath(t->pright,
+        len + 1, maxLen);
+}
+
+// utility function to find the sum of nodes on
+// the longest path from root to leaf node
+int sumOfLongRootToLeafPathUtil(TREE t)
+{
+    // if tree is NULL, then sum is 0
     if (t == NULL)
         return 0;
-    else
-    {
-        
-        int rDepth = maxDepth(t->pright);
-        int lDepth = maxDepth(t->pleft);
-       
-        if (lDepth < rDepth){
-            return(lDepth + 1);
-        }
-        else {
-        return(rDepth + 1);
-        }
-    }
+
+    int  maxLen = 0;
+
+    // finding the maximum sum 'maxSum' for the
+    // maximum length root to leaf path
+    sumOfLongRootToLeafPath(t, 0, maxLen);
+
+    // required maximum sum
+    return maxLen;
 }
 
 void Menu(TREE& t) {
@@ -194,8 +218,7 @@ void Menu(TREE& t) {
             system("pause");
         }
         else if (luachon == 5) {
-            cout << "Height of tree is : ";
-            maxDepth(t);
+            cout << "\n longest path is: " << sumOfLongRootToLeafPathUtil(t);
             system("pause");
         }
         else {
@@ -259,7 +282,7 @@ int arrayofjoints()
     {
         for (int j = 0; j < 21; j++)
         {
-            cout<<arr[i][j];
+            cout<<arr[i][j]<<" ";
         }
         cout << "\n";
     }
@@ -393,7 +416,15 @@ int main()
         int k = i % 3;
         arrtwoD3[j][k] = arrayTam3[i];
     }
-    // hiển thị khớp nối
+    for (int i = 0; i < 21; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            cout << arrtwoD3[i][j] << " ";
+        }
+        cout << "\n";
+    }
+    // bài 2 hiển thị khớp nối
     //int kq = arrayofjoints();
 
     ///////////////////////////////////////////////////////////////////////////
@@ -419,16 +450,11 @@ int main()
        ở đây em chọn interchange sort, sau mỗi lần swap  thì giá trị nào đã được swap
       từ đó lấy giá trị đó vứt vào vòng for của arrayGoc, thấy giá trị bị đổi đó trùng với 
       giá trị nào trong array gốc thì ta sẽ lấy vị trí index 
-      rồi nhảy tiếp vào arraySaveCount tìm giá trị index đó và tăng biến lên +1
-      */
+      rồi nhảy tiếp vào arraySaveCount tìm giá trị index đó và tăng biến lên +1*/
+   
      /*
        float arrayTam[21];
-       float arraySaveCount[21];// mảng 21 giá trị 0 để đếm phần tử
        float arrayGoc[21];
-       for (int i = 0; i < 21; i++)
-       {
-           arraySaveCount[i] = 0;
-       }
        for (int i = 0; i < 21; i++)
        {
            arrayTam[i] = kq[i];
@@ -446,37 +472,20 @@ int main()
                        float temp = arrayTam[i];
                        arrayTam[i] = arrayTam[j];
                        arrayTam[j] = temp;
-                       for (int k = 0; k < 21; k++)
-                       {
-                           if (arrayGoc[k] == arrayTam[i])
-                           {
-                               arraySaveCount[k]++;
-                           }
-                       }
-                       for (int h = 0; h < 21; h++)
-                       {
-                           if (arrayGoc[h] == arrayTam[j])
-                           {
-                               arraySaveCount[h]++;
-                           }
-                       }
                    }
                }
            }
+          
            for (int i = 0; i < 21; i++)
            {
-               cout << " the value: " << arrayTam[i] << "\t";
-               cout <<" swap times :" << arraySaveCount[i] << "\n";
-           }
-           int moveTheMost = 0;
-           for (int i = 0; i < 21; i++)
-           {
-               if (arraySaveCount[i] > moveTheMost)
+               if (arrayTam[20] == arrayGoc[i])
                {
-                   moveTheMost = i;
+   cout << "\n ID of the joint that moves the most is: "<<i<<" with distance: "<< arrayTam[20];
                }
+  
            }
-           cout << "\n ID of the joint that moves the most is: " << moveTheMost;
+
+           
     */
     ////////////////////////////////////////////////////////////////////////
     /// câu 789 khởi tạo cây và thêm vào đều nằm trong phần này
